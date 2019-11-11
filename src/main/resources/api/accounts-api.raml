@@ -1,0 +1,130 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/4e628453-a02a-4761-8775-2a9eb8ae98e5/ # 
+version: v1
+title: Accounts API
+description: "Customer accounts database as a System API for the rest of Devoteam"
+
+types:
+  Account: !include accounts/AccountDetails.raml
+  Account2: !include accounts/Account2Details.raml
+  AccountIncomplete: !include accounts/AccountIncompleteDetails.raml
+    
+/accounts:
+  get:
+    description: GET Customer accounts 
+    headers:
+      Requester-ID:
+        type: string
+    queryParameters:
+      type:
+        required: true
+        enum: 
+          - personnal
+          - business
+      name:
+        required: false
+      country:
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: Account[]
+            examples:
+              output: !include examples/AccountDetailsExample.raml
+      400:
+          body:
+            application/json:
+              example:
+                message: "Bad request"
+  /{id}:
+    get:
+      description: GET a specific Customer account by ID
+      queryParameters: 
+        type: 
+          required: false
+          enum:
+            - business
+            - personnal
+      responses:
+        200:
+          body:
+            application/json:
+              type: Account2[]
+              examples:
+                output: !include examples/Account2DetailsExample.raml
+        400:
+          body:
+            application/json:
+              example: {
+                message: "Can't get this customer's account by ID, check your request"
+              }     
+    put:
+      description: Update a specific Customer account
+      responses: 
+        200:
+          body: 
+            application/json: 
+              example: {
+              "message": "Account replaced (but not really)"
+            }
+        400:
+          body:
+            application/json:
+              example: {
+                message: "Account not replaced, check your request"
+              }
+    patch:
+      description: Update partially a specific Customer account
+      responses: 
+        200:
+          body: 
+            application/json: 
+              example: {
+              "message": "Account modified  (but not really)"
+            }
+        400:
+          body:
+            application/json:
+              example: {
+                message: "Account not modified, check your request"
+              } 
+    delete:
+      description: Delete a specific Customer account
+      responses: 
+        200:
+          body: 
+            application/json: 
+              example: {
+              "message": "Account deleted  (but not really)"
+            }
+        400:
+          body:
+            application/json:
+              example: {
+                message: "Account not deleted, check your request"
+              }
+    
+   
+  post:
+    body:
+      application/json:
+        type: AccountIncomplete
+        examples:
+          input: !include examples/AccountIncompleteDetailsExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example: {
+              "message": "Account created (but not really)"
+            }
+      400:
+          body:
+            application/json:
+              example: {
+                message: "Bad request, check your request"
+              }
+
+      
+    

@@ -1,0 +1,13 @@
+{
+  "sampleData": {
+    "62133e25-9151-4290-9f5d-37dc25fc93a5": {
+      "attributes": "sample_data/defaultvoidtype.dwl"
+    },
+    "3a8f40fd-630d-4888-a1fc-24bd3ab67e82": {
+      "payload": "sample_data/list_object_1.dwl"
+    },
+    "87f22de3-717a-41d9-bc1b-f445c2e81dda": {
+      "payload": "sample_data/list_object.dwl"
+    }
+  }
+}
